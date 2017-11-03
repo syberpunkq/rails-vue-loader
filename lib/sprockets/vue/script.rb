@@ -25,6 +25,11 @@ module Sprockets::Vue
         },
         nil => ->(s,input){ { 'js' => s } }
       }
+
+      TEMPLATE_COMPILES = {
+        'slim' => ->(s) { Slim::Template.new { s }.render },
+        nil => ->(s) { s }
+      }
       def call(input)
         data = input[:data]
         name = input[:name]
@@ -35,7 +40,7 @@ module Sprockets::Vue
           map = nil
           if script
             result = SCRIPT_COMPILES[script[:lang]].call(script[:content], input)
-            
+
             map = result['sourceMap']
 
             output << "'object' != typeof VComponents && (this.VComponents = {});
@@ -44,7 +49,8 @@ module Sprockets::Vue
           end
 
           if template
-            output << "VComponents['#{name.sub(/\.tpl$/, "")}'].template = '#{j template[:content]}';"
+            built_template = TEMPLATE_COMPILES[template[:lang]].call(template[:content])
+            output << "VComponents['#{name.sub(/\.tpl$/, "")}'].template = '#{j built_template}';"
           end
 
           { data: "#{warp(output.join)}", map: map }

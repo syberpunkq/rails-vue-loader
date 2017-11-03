@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'pry'
   s.add_development_dependency 'sass'
   s.add_development_dependency 'coffee-script'
+  s.add_development_dependency 'slim'
 
   s.authors = ['kikyous']
   s.email   = 'kikyous@163.com'
