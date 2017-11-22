@@ -28,6 +28,7 @@ module Sprockets::Vue
 
       TEMPLATE_COMPILES = {
         'slim' => ->(s) { Slim::Template.new { s }.render },
+        'slm' => ->(s) { Slim::Template.new { s }.render },
         nil => ->(s) { s }
       }
       def call(input)
