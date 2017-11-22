@@ -54,11 +54,11 @@ module Sprockets::Vue
             output << "VComponents['#{name.sub(/\.tpl$/, "")}'].template = '#{j built_template}';"
           end
 
-          { data: "#{warp(output.join)}", map: map }
+          { data: "#{wrap(output.join)}", map: map }
         end
       end
 
-      def warp(s)
+      def wrap(s)
         "(function(){#{s}}).call(this);"
       end
 
