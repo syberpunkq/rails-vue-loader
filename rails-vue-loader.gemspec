@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'sprockets', '>= 3.0.0'
   s.add_dependency 'actionview'
   s.add_dependency 'activesupport'
+  s.add_dependency 'css_parser'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'minitest'
   s.add_development_dependency 'execjs'
