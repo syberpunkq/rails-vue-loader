@@ -1,5 +1,6 @@
 require 'active_support/concern'
 require "action_view"
+
 module Sprockets::Vue
   class Script
     class << self
@@ -31,14 +32,17 @@ module Sprockets::Vue
         'slm' => ->(s) { Slim::Template.new { s }.render },
         nil => ->(s) { s }
       }
+
       def call(input)
         data = input[:data]
         name = input[:name]
+
         input[:cache].fetch([cache_key, input[:source_path], data]) do
           script = SCRIPT_REGEX.match(data)
           template = TEMPLATE_REGEX.match(data)
           output = []
           map = nil
+
           if script
             result = SCRIPT_COMPILES[script[:lang]].call(script[:content], input)
 
@@ -51,6 +55,11 @@ module Sprockets::Vue
 
           if template
             built_template = TEMPLATE_COMPILES[template[:lang]].call(template[:content])
+
+            uniq_selector = Utils.scope_key(input[:filename])
+
+            built_template.sub!(/\>/, " data-#{uniq_selector}>")
+
             output << "VComponents['#{name.sub(/\.tpl$/, "")}'].template = '#{j built_template}';"
           end
 

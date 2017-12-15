@@ -5,9 +5,9 @@ module Sprockets::Vue
     class << self
       STYLE_REGEX = Utils.node_regex('style')
       STYLE_COMPILES = {
-        'scss' => Sprockets::ScssProcessor,
-        'sass' => Sprockets::SassProcessor,
-        nil => ->(i){i[:data]}
+        'scss' => ->(x) { Sprockets::ScssProcessor.call(x)[:data] },
+        'sass' => ->(x) { Sprockets::SassProcessor.call(x)[:data] },
+        nil => ->(i) { i[:data] }
       }
 
       def call(input)
@@ -17,7 +17,6 @@ module Sprockets::Vue
 
           if style
             input[:data] = style[:content]
-
             built_css = STYLE_COMPILES[style[:lang]].call(input)
 
             if style[:scoped]
