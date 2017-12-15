@@ -9,7 +9,7 @@ rails-vue-loader(formerly sprockets-vue) -- a [Sprockets](https://github.com/rai
 
 following tag is supported in .vue file
 * script (coffeescript and js)
-* template (currently html only)
+* template (html and slm)
 * style (scss, sass and css)
 
 # install
@@ -73,7 +73,8 @@ module.exports = {
 
 > you can include .vue file in css file, it's style block will be automatic processed.
  you can also use `require_tree` to include all .vue file.😘
- `scoped` will not be supported. 
+
+`scoped` is also supported (experimental mode).
 
 # advanced
 * [multi file component](https://github.com/kikyous/sprockets-vue/wiki/multi-file-component)
