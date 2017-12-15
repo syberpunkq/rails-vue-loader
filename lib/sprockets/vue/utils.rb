@@ -6,8 +6,7 @@ module Sprockets::Vue::Utils
   def node_regex(tag)
     %r(
     \<#{tag}
-      (\s+lang=["'](?<lang>\w+)["'])?
-      (?<scoped>\s+scoped)?
+      ((\s+lang=["'](?<lang>\w+)["'])|(?<scoped>\s+scoped))*
     \>
       (?<content>.+)
     \<\/#{tag}\>
