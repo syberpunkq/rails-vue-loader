@@ -23,7 +23,7 @@ module Sprockets::Vue
               parser = CssParser::Parser.new
               parser.load_string! built_css
 
-              uniq_selector = Utils.scope_key(input[:filename])
+              uniq_selector = Utils.scope_key(File.basename(input[:filename]))
 
               parser.each_rule_set do |rs|
                 rs.selectors.each do |s|
