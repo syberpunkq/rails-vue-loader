@@ -56,10 +56,6 @@ module Sprockets::Vue
           if template
             built_template = TEMPLATE_COMPILES[template[:lang]].call(template[:content])
 
-            uniq_selector = Utils.scope_key(input[:filename])
-
-            built_template.sub!(/\>/, " data-#{uniq_selector}>")
-
             output << "VComponents['#{name.sub(/\.tpl$/, "")}'].template = '#{j built_template}';"
           end
 
